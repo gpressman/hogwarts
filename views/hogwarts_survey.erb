@@ -1,0 +1,9 @@
+<% @professors.each do |professor, id| %>
+	<h3><%= professor %> </h3>
+	<a href= "/thumbs_up/<%= id %>">Thumbs up</a>
+	<a href= "/thumbs_down/<%= id %>">Thumbs down</a> 
+
+
+
+
+<% end %>

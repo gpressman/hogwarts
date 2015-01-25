@@ -6,6 +6,13 @@ enable :sessions
 
 set :session_secret, 'super secret'
 
+professors= {"Snape" =>1, "Mcgonn" =>2, "Filtwick" =>3, "Sprout" =>4}
+
+get '/thumbs_up/:id' do
+end
+
+get '/thumbs_down/:id' do 
+end
 
 get '/' do 
   erb :hogwarts_home
@@ -18,8 +25,13 @@ get '/login' do
  end
 
 get '/survey_page' do 
-	erb :hogwarts_survey
 
+	@professors=professors
+	erb :hogwarts_survey
+end
+
+get '/bad_login' do
+	erb :bad_login
 end
 
 
@@ -43,3 +55,9 @@ def authenticate(username, password)
 		return false
 	end
 end
+
+
+
+
+
+
