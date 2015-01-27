@@ -1,9 +1,17 @@
 <% @professors.each do |professor, id| %>
 	<h3><%= professor %> </h3>
-	<a href= "/thumbs_up/<%= id %>">Thumbs up</a>
-	<a href= "/thumbs_down/<%= id %>">Thumbs down</a> 
 
-
+	<label for="rating<%= id %>">thumbs up</label>
+	<input type="checkbox" class="radio" value="1" name="rating" id="rating<%= id %>">
+	<label for="thumbs down<%= id %>">thumbs down</label>
+	<input type="checkbox" name="thumbs down" id="thumbs down<%= id %>">
+	
 
 
 <% end %>
+<br>
+<br>
+<br>
+<button type="submit">submit</button>
+
+
