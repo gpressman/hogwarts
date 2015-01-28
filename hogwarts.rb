@@ -2,13 +2,42 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'pry'
 
+class Professor
+	attr_accessor :rating
+	def initialize(name, rating)
+		@name = name
+		@rating = 0
+	end
+	
+	def thumbsup!
+		@rating = 0
+		@rating = @rating+1
+		
+	end 
+
+	def thumbsdown!
+		@rating=0
+		@rating=@rating-1
+	end
+
+end
+
+snape 	=    Professor.new(snape, 0)
+mcgonn 	=   Professor.new(mcgonn, 0)
+filtwick = Professor.new(filtwick, 0)
+sprout =   Professor.new(sprout, 0)
+
+sprout.thumbsdown!
+
+puts sprout.rating
 enable :sessions
 
 set :session_secret, 'super secret'
 
-professors= {"Snape" =>1, "Mcgonn" =>2, "Filtwick" =>3, "Sprout" =>4}
+professors= {"1" =>snape, "2" =>mcgonn, "3" =>filtwick, "4" =>sprout}
 
 get '/thumbs_up/:id' do
+	erb :thumbs_up	
 end
 
 get '/thumbs_down/:id' do 
@@ -55,7 +84,6 @@ def authenticate(username, password)
 		return false
 	end
 end
-
 
 
 
