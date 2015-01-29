@@ -3,6 +3,7 @@ require 'sinatra/reloader' if development?
 require 'pry'
 
 class Professor
+	attr_reader :name
 	attr_accessor :rating
 	def initialize(name, rating)
 		@name = name
@@ -10,22 +11,20 @@ class Professor
 	end
 	
 	def thumbsup!
-		@rating = 0
 		@rating = @rating+1
 		
 	end 
 
 	def thumbsdown!
-		@rating=0
 		@rating=@rating-1
 	end
 
 end
 
-snape 	=    Professor.new(snape, 0)
-mcgonn 	=   Professor.new(mcgonn, 0)
-filtwick = Professor.new(filtwick, 0)
-sprout =   Professor.new(sprout, 0)
+snape 	=    Professor.new("Severus Snape", 0)
+mcgonn 	=   Professor.new("Minerva McGonagall", 0)
+filtwick = Professor.new("Phineas Flitwick", 0)
+sprout =   Professor.new("Pomona Sprout", 0)
 
 sprout.thumbsdown!
 
@@ -34,13 +33,23 @@ enable :sessions
 
 set :session_secret, 'super secret'
 
-professors= {"1" =>snape, "2" =>mcgonn, "3" =>filtwick, "4" =>sprout}
+professors = {"1" =>snape, "2" =>mcgonn, "3" =>filtwick, "4" =>sprout}
 
-get '/thumbs_up/:id' do
-	erb :thumbs_up	
+post '/tally' do
+	params.each do |id, value|
+		if value=="up"
+			professors[id].thumbsup!
+		elsif value=="down"
+			professors[id].thumbsdown!
+		end
+
+	end
+	redirect to ('/results')
 end
 
-get '/thumbs_down/:id' do 
+get '/results' do
+	@professors=professors
+	erb :hogwarts_results
 end
 
 get '/' do 
